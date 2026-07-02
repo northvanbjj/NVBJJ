@@ -1,7 +1,13 @@
 const NVB_CONFIG = {
   formEndpoint: 'https://formspree.io/f/YOUR_FORM_ID',
   bookingUrl: null,
+  // Maps JavaScript API — loads the Places library in the browser
+  googleMapsApiKey: 'AIzaSyAktREvTTiJA6Ion7T8GMQGkgxx9a3HNIY',
+  // Places API (New) — rotate both keys after go-live
+  googlePlacesApiKey: 'AIzaSyBxRfna4RgpedQIkEVjrWhTwVL8oHR0RPI',
 };
+
+window.NVB_CONFIG = NVB_CONFIG;
 
 (function () {
   'use strict';
@@ -23,17 +29,6 @@ const NVB_CONFIG = {
         navMobile.classList.remove('is-open');
         document.body.style.overflow = '';
       });
-    });
-  }
-
-  const heroMedia = document.querySelector('.hero-media');
-  const heroPlay = document.querySelector('.hero-play');
-  const heroVideo = document.querySelector('.hero-video');
-
-  if (heroPlay && heroVideo && heroMedia) {
-    heroPlay.addEventListener('click', () => {
-      heroMedia.classList.add('is-playing');
-      heroVideo.play();
     });
   }
 
@@ -66,11 +61,27 @@ const NVB_CONFIG = {
     btn.addEventListener('click', handleTrialClick);
   });
 
-  const trialForm = document.getElementById('trial-form');
-  const formSuccess = document.querySelector('.form-msg.success');
-  const formError = document.querySelector('.form-msg.error');
+  async function loadPartial(selector, url) {
+    const mount = document.querySelector(selector);
+    if (!mount) return;
+    try {
+      const res = await fetch(url);
+      if (res.ok) mount.innerHTML = await res.text();
+    } catch {
+      /* partial unavailable offline */
+    }
+  }
 
-  if (trialForm) {
+  function bindTrialForm() {
+    const trialForm = document.getElementById('trial-form');
+    if (!trialForm || trialForm.dataset.bound) return;
+    trialForm.dataset.bound = 'true';
+
+    const formSuccess = trialForm.closest('.form-wrap')?.querySelector('.form-msg.success')
+      || document.querySelector('.form-msg.success');
+    const formError = trialForm.closest('.form-wrap')?.querySelector('.form-msg.error')
+      || document.querySelector('.form-msg.error');
+
     trialForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       formSuccess?.classList.remove('is-visible');
@@ -115,4 +126,10 @@ const NVB_CONFIG = {
       }
     });
   }
+
+  const partialBase = document.body.dataset.partialBase || '';
+  Promise.all([
+    loadPartial('[data-include="trial-form"]', `${partialBase}partials/trial-form.html`),
+    loadPartial('[data-include="trial-copy"]', `${partialBase}partials/trial-copy.html`),
+  ]).then(bindTrialForm);
 })();
