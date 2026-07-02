@@ -1,0 +1,8 @@
+.DS_Store
+*.log
+
+# Old drafts / experiments — not for deploy
+nvbjj.html
+nvbjj-original.html
+pitch-next/
+pitch-website/
