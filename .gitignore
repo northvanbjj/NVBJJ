@@ -1,5 +1,8 @@
 .DS_Store
 *.log
+.env
+.env.local
+.env.*.local
 
 # Old drafts / experiments — not for deploy
 nvbjj.html

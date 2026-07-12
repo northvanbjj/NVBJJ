@@ -187,7 +187,7 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
   margin-left: 0.5rem;
   padding: 0.65rem 1.25rem;
   background: var(--ink);
-  color: #fff !important;
+  color: #4169e1 !important;
   font-family: var(--display);
   font-size: 0.95rem;
   letter-spacing: 0.08em;
@@ -199,7 +199,7 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
 
 .nav-desktop .nav-cta:hover {
   background: #000;
-  color: #fff !important;
+  color: #4169e1 !important;
 }
 
 .has-dropdown { position: relative; }
@@ -746,6 +746,120 @@ section.soft { background: var(--bg-soft); }
 }
 
 .form-msg.is-visible { display: block; }
+
+.form-wrap form.is-hidden { display: none; }
+
+/* FAQ accordion */
+.faq-list { max-width: 720px; margin: 0 auto; }
+
+.faq-item {
+  border-bottom: 1px solid var(--line);
+}
+
+.faq-question {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 1.25rem 2rem 1.25rem 0;
+  font-family: var(--body);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  position: relative;
+}
+
+.faq-question::after {
+  content: '+';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.25rem;
+  color: var(--muted);
+}
+
+.faq-item.is-open .faq-question::after { content: '–'; }
+
+.faq-answer {
+  display: none;
+  padding: 0 0 1.25rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.faq-item.is-open .faq-answer { display: block; }
+
+/* Google review badge */
+.review-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 1.25rem;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.review-badge:hover { border-color: var(--ink); }
+
+.review-badge .stars {
+  letter-spacing: 1px;
+  font-size: 0.85rem;
+}
+
+.review-badge small {
+  font-weight: 500;
+  color: var(--muted);
+}
+
+/* Instagram / Behold */
+.instagram-section { padding: 4rem 0; }
+
+.behold-embed {
+  min-height: 280px;
+  margin-top: 1.5rem;
+}
+
+/* Schedule widget */
+.schedule-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.schedule-filter {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--muted);
+  padding: 0.55rem 0.9rem;
+  border-radius: var(--radius);
+  font-family: var(--body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.schedule-filter.is-active,
+.schedule-filter:hover {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+}
+
+.schedule-day { margin-bottom: 2rem; }
+
+.schedule-day h3 {
+  margin-bottom: 0.75rem;
+  font-size: 1.4rem;
+}
 
 .trial-grid {
   display: grid;
