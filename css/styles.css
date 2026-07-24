@@ -570,6 +570,23 @@ section.soft { background: var(--bg-soft); }
 .prose ul { color: var(--muted); padding-left: 1.25rem; }
 .prose li { margin-bottom: 0.5rem; }
 
+.journey-timeline { margin: 2rem 0; }
+.journey-step {
+  padding: 0 0 1.75rem 1.25rem;
+  border-left: 3px solid var(--ink);
+  margin-bottom: 1.75rem;
+}
+.journey-step:last-child { margin-bottom: 0; padding-bottom: 0; }
+.journey-step h3 {
+  font-family: var(--display);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 0.75rem;
+}
+
 /* Schedule */
 .schedule-tabs {
   display: flex;
@@ -865,6 +882,21 @@ section.soft { background: var(--bg-soft); }
   display: grid;
   gap: 3rem;
   align-items: start;
+}
+
+.gymdesk-embed {
+  min-height: 12rem;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  background: var(--bg-soft);
+  padding: 1rem;
+}
+
+.gymdesk-embed:empty::before {
+  content: attr(aria-label);
+  display: block;
+  color: var(--muted);
+  font-size: 0.9rem;
 }
 
 /* Contact */
