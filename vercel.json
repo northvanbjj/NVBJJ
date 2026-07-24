@@ -1,4 +1,32 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/about-nvgjj", "destination": "/about", "permanent": true },
+    { "source": "/marc-marins", "destination": "/about", "permanent": true },
+    { "source": "/assistant-nvgjj-instructors", "destination": "/about", "permanent": true },
+    { "source": "/nvbjj-community-affiliations", "destination": "/about", "permanent": true },
+    { "source": "/leadership", "destination": "/about", "permanent": true },
+    { "source": "/cost-pricing", "destination": "/pricing", "permanent": true },
+    { "source": "/private-session-marc-marins", "destination": "/pricing", "permanent": true },
+    { "source": "/free-introductory-trial-classes", "destination": "/#book-trial", "permanent": true },
+    { "source": "/contact", "destination": "/contact", "permanent": true },
+    { "source": "/access-parking-nvgjj", "destination": "/contact", "permanent": true },
+    { "source": "/schedule", "destination": "/schedule", "permanent": true },
+    { "source": "/schedule-instructor", "destination": "/schedule", "permanent": true },
+    { "source": "/monthly-training-calendar", "destination": "/schedule", "permanent": true },
+    { "source": "/monthly-training-calendar-2", "destination": "/schedule", "permanent": true },
+    { "source": "/women-empowered", "destination": "/programs/women-empowered", "permanent": true },
+    { "source": "/gracie-bullyproof", "destination": "/programs/bullyproof", "permanent": true },
+    { "source": "/bullyproofcamp", "destination": "/programs/bullyproof", "permanent": true },
+    { "source": "/advanced-jiujitsu", "destination": "/programs/master-cycle", "permanent": true },
+    { "source": "/fundamental-jiujitsu", "destination": "/programs/combatives", "permanent": true },
+    { "source": "/holds-cancellations", "destination": "/faq", "permanent": true },
+    { "source": "/resources", "destination": "/faq", "permanent": true },
+    { "source": "/questions", "destination": "/faq", "permanent": true },
+    { "source": "/code-of-conduct", "destination": "/faq", "permanent": true },
+    { "source": "/what-do-the-different-belts-mean", "destination": "/faq", "permanent": true },
+    { "source": "/testimonials", "destination": "/#reviews", "permanent": true },
+    { "source": "/blog", "destination": "/", "permanent": true }
+  ]
 }

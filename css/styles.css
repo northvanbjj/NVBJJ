@@ -517,6 +517,17 @@ section.soft { background: var(--bg-soft); }
 }
 
 /* Testimonials */
+#reviews .grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#reviews .quote {
+  flex: 1 1 300px;
+  max-width: 360px;
+}
+
 .quote {
   background: #fff;
   border: 1px solid var(--line);
