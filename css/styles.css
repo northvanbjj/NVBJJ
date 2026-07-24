@@ -1,7 +1,8 @@
 /* NVBJJ multipage — white/black/grey, blue nav-hover only */
 
 :root {
-  --nav-blue: #2a9db8;
+  --nav-blue: #55c3dc;
+  --nav-blue-hover: #3daec8;
   --ink: #141618;
   --text: #33383d;
   --muted: #6b7280;
@@ -186,8 +187,8 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
 .nav-desktop .nav-cta {
   margin-left: 0.5rem;
   padding: 0.65rem 1.25rem;
-  background: var(--ink);
-  color: #4169e1 !important;
+  background: var(--nav-blue);
+  color: #fff !important;
   font-family: var(--display);
   font-size: 0.95rem;
   letter-spacing: 0.08em;
@@ -198,8 +199,8 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
 .nav-desktop .nav-cta::after { display: none; }
 
 .nav-desktop .nav-cta:hover {
-  background: #000;
-  color: #4169e1 !important;
+  background: var(--nav-blue-hover);
+  color: #fff !important;
 }
 
 .has-dropdown { position: relative; }
@@ -297,7 +298,7 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
   text-align: center;
   margin-top: 1.5rem;
   padding: 1rem;
-  background: var(--ink);
+  background: var(--nav-blue);
   color: #fff !important;
   border-radius: var(--radius);
   font-family: var(--display);
