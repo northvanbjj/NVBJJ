@@ -25,6 +25,9 @@
     { "source": "/code-of-conduct", "destination": "/faq", "permanent": true },
     { "source": "/what-do-the-different-belts-mean", "destination": "/faq", "permanent": true },
     { "source": "/testimonials", "destination": "/#reviews", "permanent": true },
-    { "source": "/blog", "destination": "/", "permanent": true }
+    { "source": "/infinite-mindset", "destination": "/blog/infinite-mindset", "permanent": true },
+    { "source": "/the-art-of-fighting-fears-maria-myles", "destination": "/blog/the-art-of-fighting-fears-maria-myles", "permanent": true },
+    { "source": "/how-do-we-address-challenging-training-partners", "destination": "/blog/how-do-we-address-challenging-training-partners", "permanent": true },
+    { "source": "/black-belt-health", "destination": "/blog/black-belt-health", "permanent": true }
   ]
 }

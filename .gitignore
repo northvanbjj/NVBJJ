@@ -9,3 +9,6 @@ nvbjj.html
 nvbjj-original.html
 pitch-next/
 pitch-website/
+
+# Local dev tooling (machine-specific)
+.claude/

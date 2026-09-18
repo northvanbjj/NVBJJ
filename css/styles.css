@@ -319,6 +319,7 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
 .hero {
   position: relative;
   min-height: 92vh;
+  min-height: 92dvh;
   display: flex;
   align-items: flex-end;
   padding-top: var(--header-h);
@@ -426,6 +427,8 @@ section.soft { background: var(--bg-soft); }
   box-shadow: 0 14px 40px rgba(0, 0, 0, 0.06);
   transform: translateY(-3px);
 }
+
+.card-img-link { display: block; }
 
 .card-img {
   aspect-ratio: 16/10;
