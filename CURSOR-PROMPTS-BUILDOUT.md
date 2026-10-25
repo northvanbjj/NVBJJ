@@ -29,7 +29,7 @@ Finally, update `Navbar.tsx` (and its mobile menu) to include a link to "New to 
 
 ## Prompt 3 — Next.js SEO & Meta Tags
 Implement the following SEO standards in the Next.js app:
-1. In `src/app/layout.tsx` or `page.tsx`, inject a `<script type="application/ld+json">` containing `LocalBusiness` schema (North Vancouver BJJ, Unit 206 250 Esplanade E North Vancouver BC V7L 1A5, 604-770-1766, info@northvanbjj.com, aggregateRating 5 with 125 reviews).
+1. In `src/app/layout.tsx` or `page.tsx`, inject a `<script type="application/ld+json">` containing `LocalBusiness` schema (North Vancouver BJJ, Unit 206 250 Esplanade E North Vancouver BC V7L 1A5, 604-770-1766, northvanbjj@gmail.com, aggregateRating 5 with 125 reviews).
 2. On the new `/faq` page, add `FAQPage` JSON-LD schema dynamically based on the accordion content.
 3. Utilize Next.js `generateMetadata` or the `metadata` export to ensure every page has a unique title, description, and Open Graph tags (og:title, og:description, og:image, og:url). 
 4. Ensure `sitemap.ts` and `robots.ts` files exist in the `src/app/` directory to automatically generate the sitemap and robots.txt.
