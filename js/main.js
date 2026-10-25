@@ -127,7 +127,7 @@ window.NVB_CONFIG = NVB_CONFIG;
         }
       } catch {
         if (formError) {
-          formError.textContent = 'Something went wrong. Call 604-770-1766 or email info@northvanbjj.com';
+          formError.textContent = 'Something went wrong. Call 604-770-1766 or email northvanbjj@gmail.com';
           formError.classList.add('is-visible');
         }
       } finally {
