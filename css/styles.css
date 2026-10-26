@@ -847,6 +847,65 @@ section.soft { background: var(--bg-soft); }
 
 .faq-item.is-open .faq-answer { display: block; }
 
+/* Monthly calendar drop boxes */
+.calendar-list { max-width: 880px; margin: 3rem auto 0; }
+
+.calendar-list h2 { text-align: center; margin-bottom: 1.25rem; }
+
+.calendar-drop {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  margin-bottom: 0.75rem;
+}
+
+.calendar-drop summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 1.1rem 3rem 1.1rem 1.25rem;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--ink);
+  position: relative;
+}
+
+.calendar-drop summary::-webkit-details-marker { display: none; }
+
+.calendar-drop summary::after {
+  content: '+';
+  position: absolute;
+  right: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.25rem;
+  color: var(--muted);
+}
+
+.calendar-drop[open] summary::after { content: '\2013'; }
+
+.calendar-body { padding: 0 1.25rem 1.25rem; }
+
+.calendar-body p { margin: 0 0 0.75rem; color: var(--muted); font-size: 0.95rem; }
+
+.calendar-frame {
+  width: 100%;
+  aspect-ratio: 792 / 612;
+  min-height: 420px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: #f4f4f4;
+}
+
+.calendar-page { max-width: 1000px; }
+
+.calendar-page h2 { margin-bottom: 0.5rem; }
+
+.calendar-links { margin: 0 0 0.75rem; color: var(--muted); font-size: 0.95rem; }
+
+.calendar-frame-full { min-height: 560px; }
+
+.center-cta { text-align: center; }
+
 /* Google review badge */
 .review-badge {
   display: inline-flex;
@@ -952,6 +1011,14 @@ section.soft { background: var(--bg-soft); }
   padding: 1.75rem;
 }
 
+.footer-lane {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
 .contact-card h3 {
   font-size: 0.8rem;
   letter-spacing: 0.1em;
@@ -1038,9 +1105,7 @@ section.soft { background: var(--bg-soft); }
 .footer-logos img { height: 48px; width: auto; opacity: 0.9; }
 
 .footer-logos img.certified {
-  background: var(--ink);
-  padding: 6px 8px;
-  border-radius: 4px;
+  opacity: 1;
 }
 
 .footer-copy {

@@ -32,6 +32,24 @@
         <option value="Not Sure">Not sure — help me choose</option>
       </select>
     </div>
+    <div class="form-group">
+      <label for="age">Age *</label>
+      <input type="number" id="age" name="age" required min="3" max="99" inputmode="numeric" placeholder="Age of the person who will be training">
+    </div>
+    <div class="form-group">
+      <label for="experience">Experience *</label>
+      <select id="experience" name="experience" required>
+        <option value="">Select your experience</option>
+        <option value="No experience">No experience — brand new</option>
+        <option value="Some martial arts experience">Some martial arts experience</option>
+        <option value="Some Jiu-Jitsu experience">Some Jiu-Jitsu experience</option>
+        <option value="Experienced Jiu-Jitsu student">Experienced Jiu-Jitsu student</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="message">Anything else we should know? (optional)</label>
+      <textarea id="message" name="message" rows="3" placeholder="Injuries, questions, schedule preferences, who the trial is for..."></textarea>
+    </div>
     <button type="submit" class="btn btn-primary btn-full">Book Your Free 10-Day Trial</button>
   </form>
 </div>

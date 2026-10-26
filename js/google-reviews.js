@@ -58,6 +58,11 @@
     summary.textContent = count
       ? `${place.rating.toFixed(1)} · ${count} Google reviews`
       : `${place.rating.toFixed(1)} on Google`;
+    if (count) {
+      document.querySelectorAll('[data-reviews-badge-count]').forEach((el) => {
+        el.textContent = `${count} Google reviews`;
+      });
+    }
   }
 
   async function fetchReviews() {

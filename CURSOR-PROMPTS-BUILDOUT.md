@@ -29,14 +29,14 @@ Finally, update `Navbar.tsx` (and its mobile menu) to include a link to "New to 
 
 ## Prompt 3 — Next.js SEO & Meta Tags
 Implement the following SEO standards in the Next.js app:
-1. In `src/app/layout.tsx` or `page.tsx`, inject a `<script type="application/ld+json">` containing `LocalBusiness` schema (North Vancouver BJJ, Unit 206 250 Esplanade E North Vancouver BC V7L 1A5, 604-770-1766, northvanbjj@gmail.com, aggregateRating 5 with 125 reviews).
+1. In `src/app/layout.tsx` or `page.tsx`, inject a `<script type="application/ld+json">` containing `LocalBusiness` schema (North Vancouver BJJ, Unit 206 250 Esplanade E North Vancouver BC V7L 1A3, 604-770-1766, northvanbjj@gmail.com, aggregateRating 5 with 131 reviews).
 2. On the new `/faq` page, add `FAQPage` JSON-LD schema dynamically based on the accordion content.
 3. Utilize Next.js `generateMetadata` or the `metadata` export to ensure every page has a unique title, description, and Open Graph tags (og:title, og:description, og:image, og:url). 
 4. Ensure `sitemap.ts` and `robots.ts` files exist in the `src/app/` directory to automatically generate the sitemap and robots.txt.
 
 ## Prompt 4 — Review badge, Instagram feed, Meta pixel
 In the `pitch-next` codebase:
-1. Create a `ReviewBadge.tsx` component showing 5 stars and 125 reviews, linking to `GOOGLE_LISTING_URL`. Place it near the top of the homepage hero section.
+1. Create a `ReviewBadge.tsx` component showing 5 stars and 131 reviews, linking to `GOOGLE_LISTING_URL`. Place it near the top of the homepage hero section.
 2. In the homepage (`src/app/page.tsx`), add an Instagram feed section. Use a Behold.so embed script/component with the placeholder `BEHOLD_FEED_ID`.
 3. Add the Meta pixel base code to `src/app/layout.tsx` (using Next.js `next/script` with `strategy="afterInteractive"`) using the placeholder `META_PIXEL_ID`.
 
