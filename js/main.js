@@ -11,7 +11,8 @@ function normalizeGitHubPagesLinks() {
   const isNestedPage = /\/(programs|blog)(?:\/|$)/.test(pagePath);
 
   const toRelative = (href) => {
-    if (!href || !href.startsWith('/')) return href;
+    if (!href || href.startsWith('http://') || href.startsWith('https://') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:') || href.startsWith('data:')) return href;
+    if (href.startsWith('#')) return href;
     if (href.startsWith('/#')) return href.slice(1);
 
     const normalized = href.replace(/\/+$/, '');
@@ -44,35 +45,47 @@ function normalizeGitHubPagesLinks() {
       '/pricing.html': isNestedPage ? '../pricing.html' : 'pricing.html',
       '/contact': isNestedPage ? '../contact.html' : 'contact.html',
       '/contact.html': isNestedPage ? '../contact.html' : 'contact.html',
-      '/assets': isNestedPage ? '../assets' : 'assets',
-      '/assets/': isNestedPage ? '../assets/' : 'assets/',
     };
 
     if (normalized in mapping) return mapping[normalized];
-    if (normalized.startsWith('/assets/')) {
-      return isNestedPage ? `../${normalized.slice(1)}` : normalized.slice(1);
+    if (normalized.startsWith('/assets/') || normalized.startsWith('/css/') || normalized.startsWith('/js/')) {
+      const relative = normalized.replace(/^\/+/, '');
+      return isNestedPage ? `../${relative}` : relative;
     }
-    if (normalized.startsWith('/js/')) {
-      return isNestedPage ? `../${normalized.slice(1)}` : normalized.slice(1);
-    }
-    if (normalized.startsWith('/css/')) {
-      return isNestedPage ? `../${normalized.slice(1)}` : normalized.slice(1);
+    if (normalized.startsWith('/')) {
+      return isNestedPage ? `.${normalized}` : normalized;
     }
 
     return href;
   };
 
-  document.querySelectorAll('a[href^="/"]').forEach((link) => {
-    const next = toRelative(link.getAttribute('href'));
-    if (next && next !== link.getAttribute('href')) {
-      link.setAttribute('href', next);
-    }
-  });
+  const rewriteAttribute = (selector, attr) => {
+    document.querySelectorAll(selector).forEach((node) => {
+      const raw = node.getAttribute(attr);
+      if (!raw) return;
+      const next = toRelative(raw);
+      if (next && next !== raw) {
+        node.setAttribute(attr, next);
+      }
+    });
+  };
 
-  document.querySelectorAll('img[src^="/"], source[src^="/"]').forEach((node) => {
-    const next = toRelative(node.getAttribute('src'));
-    if (next && next !== node.getAttribute('src')) {
-      node.setAttribute('src', next);
+  rewriteAttribute('a[href^="/"]', 'href');
+  rewriteAttribute('link[href^="/"]', 'href');
+  rewriteAttribute('script[src^="/"]', 'src');
+  rewriteAttribute('img[src^="/"]', 'src');
+  rewriteAttribute('source[src^="/"]', 'src');
+  rewriteAttribute('source[srcset^="/"]', 'srcset');
+  rewriteAttribute('iframe[src^="/"]', 'src');
+  rewriteAttribute('video[poster^="/"]', 'poster');
+  rewriteAttribute('form[action^="/"]', 'action');
+
+  document.querySelectorAll('meta[content^="/"]').forEach((node) => {
+    const raw = node.getAttribute('content');
+    if (!raw) return;
+    const next = toRelative(raw);
+    if (next && next !== raw) {
+      node.setAttribute('content', next);
     }
   });
 }
@@ -100,7 +113,6 @@ function normalizeGitHubPagesLinks() {
     });
   }
 
-  /* FAQ accordion */
   document.querySelectorAll('.faq-item').forEach((item) => {
     const btn = item.querySelector('.faq-question');
     if (!btn) return;
