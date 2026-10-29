@@ -6,64 +6,53 @@ const NVB_CONFIG = {
 
 window.NVB_CONFIG = NVB_CONFIG;
 
-function normalizeGitHubPagesLinks() {
-  const pagePath = window.location.pathname.replace(/\/+$/, '');
-  const isNestedPage = /\/(programs|blog)(?:\/|$)/.test(pagePath);
+function relativePathFromCurrent(targetPath) {
+  const currentPath = window.location.pathname.replace(/\/index\.html$/, '').replace(/\/+$/, '') || '/';
+  const currentDir = currentPath.includes('.') ? currentPath.slice(0, currentPath.lastIndexOf('/')) : currentPath;
+  const rootBase = currentPath.startsWith('/NVBJJ') ? '/NVBJJ/' : '/';
 
-  const toRelative = (href) => {
-    if (!href || href.startsWith('http://') || href.startsWith('https://') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:') || href.startsWith('data:')) return href;
-    if (href.startsWith('#')) return href;
-    if (href.startsWith('/#')) return href.slice(1);
-
-    const normalized = href.replace(/\/+$/, '');
-    const mapping = {
-      '/': './',
-      '/index.html': './',
-      '/new-to-jiu-jitsu': isNestedPage ? '../new-to-jiu-jitsu.html' : 'new-to-jiu-jitsu.html',
-      '/new-to-jiu-jitsu.html': isNestedPage ? '../new-to-jiu-jitsu.html' : 'new-to-jiu-jitsu.html',
-      '/programs': isNestedPage ? 'index.html' : 'programs/index.html',
-      '/programs/': isNestedPage ? 'index.html' : 'programs/index.html',
-      '/programs/index.html': isNestedPage ? 'index.html' : 'programs/index.html',
-      '/programs/combatives': isNestedPage ? 'combatives.html' : 'programs/combatives.html',
-      '/programs/combatives.html': isNestedPage ? 'combatives.html' : 'programs/combatives.html',
-      '/programs/bullyproof': isNestedPage ? 'bullyproof.html' : 'programs/bullyproof.html',
-      '/programs/bullyproof.html': isNestedPage ? 'bullyproof.html' : 'programs/bullyproof.html',
-      '/programs/women-empowered': isNestedPage ? 'women-empowered.html' : 'programs/women-empowered.html',
-      '/programs/women-empowered.html': isNestedPage ? 'women-empowered.html' : 'programs/women-empowered.html',
-      '/programs/master-cycle': isNestedPage ? 'master-cycle.html' : 'programs/master-cycle.html',
-      '/programs/master-cycle.html': isNestedPage ? 'master-cycle.html' : 'programs/master-cycle.html',
-      '/schedule': isNestedPage ? '../schedule.html' : 'schedule.html',
-      '/schedule.html': isNestedPage ? '../schedule.html' : 'schedule.html',
-      '/blog': isNestedPage ? 'index.html' : 'blog/index.html',
-      '/blog/': isNestedPage ? 'index.html' : 'blog/index.html',
-      '/blog/index.html': isNestedPage ? 'index.html' : 'blog/index.html',
-      '/about': isNestedPage ? '../about.html' : 'about.html',
-      '/about.html': isNestedPage ? '../about.html' : 'about.html',
-      '/faq': isNestedPage ? '../faq.html' : 'faq.html',
-      '/faq.html': isNestedPage ? '../faq.html' : 'faq.html',
-      '/pricing': isNestedPage ? '../pricing.html' : 'pricing.html',
-      '/pricing.html': isNestedPage ? '../pricing.html' : 'pricing.html',
-      '/contact': isNestedPage ? '../contact.html' : 'contact.html',
-      '/contact.html': isNestedPage ? '../contact.html' : 'contact.html',
-    };
-
-    if (normalized in mapping) return mapping[normalized];
-    if (normalized.startsWith('/assets/') || normalized.startsWith('/css/') || normalized.startsWith('/js/')) {
-      const relative = normalized.replace(/^\/+/, '');
-      return isNestedPage ? `../${relative}` : relative;
-    }
-    if (normalized.startsWith('/')) {
-      return isNestedPage ? `.${normalized}` : normalized;
-    }
-
-    return href;
+  const normalize = (value) => {
+    const clean = value.replace(/\\/g, '/');
+    return clean === '' ? '/' : clean;
   };
 
+  const toSegments = (value) => normalize(value).split('/').filter(Boolean);
+  const fromSegments = toSegments(currentDir || '/');
+  const toSegmentsList = toSegments(targetPath);
+
+  let common = 0;
+  while (
+    common < fromSegments.length &&
+    common < toSegmentsList.length &&
+    fromSegments[common] === toSegmentsList[common]
+  ) {
+    common += 1;
+  }
+
+  const upCount = Math.max(0, fromSegments.length - common);
+  const downSegments = toSegmentsList.slice(common);
+
+  const up = upCount > 0 ? '../'.repeat(upCount) : '';
+  const down = downSegments.length ? downSegments.join('/') : '';
+  const relative = up + down;
+
+  if (!relative) return './';
+  if (relative.startsWith('../')) return relative;
+  return relative.startsWith('/') ? relative.slice(1) : relative;
+}
+
+function normalizeGitHubPagesLinks() {
   const rewriteAttribute = (selector, attr) => {
     document.querySelectorAll(selector).forEach((node) => {
       const raw = node.getAttribute(attr);
       if (!raw) return;
-      const next = toRelative(raw);
+      if (/^(https?:|mailto:|tel:|javascript:|data:|#)/i.test(raw)) return;
+      if (raw.startsWith('//')) return;
+
+      const trimmed = raw.replace(/\/+$/, '');
+      const targetPath = trimmed === '/' ? '/' : trimmed;
+      const next = relativePathFromCurrent(targetPath);
+
       if (next && next !== raw) {
         node.setAttribute(attr, next);
       }
@@ -79,14 +68,12 @@ function normalizeGitHubPagesLinks() {
   rewriteAttribute('iframe[src^="/"]', 'src');
   rewriteAttribute('video[poster^="/"]', 'poster');
   rewriteAttribute('form[action^="/"]', 'action');
-
   document.querySelectorAll('meta[content^="/"]').forEach((node) => {
     const raw = node.getAttribute('content');
     if (!raw) return;
-    const next = toRelative(raw);
-    if (next && next !== raw) {
-      node.setAttribute('content', next);
-    }
+    if (/^(https?:|mailto:|tel:|javascript:|data:|#)/i.test(raw)) return;
+    const next = relativePathFromCurrent(raw.replace(/\/+$/, '') || '/');
+    if (next && next !== raw) node.setAttribute('content', next);
   });
 }
 
