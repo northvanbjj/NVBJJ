@@ -6,77 +6,6 @@ const NVB_CONFIG = {
 
 window.NVB_CONFIG = NVB_CONFIG;
 
-function relativePathFromCurrent(targetPath) {
-  const currentPath = window.location.pathname.replace(/\/index\.html$/, '').replace(/\/+$/, '') || '/';
-  const currentDir = currentPath.includes('.') ? currentPath.slice(0, currentPath.lastIndexOf('/')) : currentPath;
-  const rootBase = currentPath.startsWith('/NVBJJ') ? '/NVBJJ/' : '/';
-
-  const normalize = (value) => {
-    const clean = value.replace(/\\/g, '/');
-    return clean === '' ? '/' : clean;
-  };
-
-  const toSegments = (value) => normalize(value).split('/').filter(Boolean);
-  const fromSegments = toSegments(currentDir || '/');
-  const toSegmentsList = toSegments(targetPath);
-
-  let common = 0;
-  while (
-    common < fromSegments.length &&
-    common < toSegmentsList.length &&
-    fromSegments[common] === toSegmentsList[common]
-  ) {
-    common += 1;
-  }
-
-  const upCount = Math.max(0, fromSegments.length - common);
-  const downSegments = toSegmentsList.slice(common);
-
-  const up = upCount > 0 ? '../'.repeat(upCount) : '';
-  const down = downSegments.length ? downSegments.join('/') : '';
-  const relative = up + down;
-
-  if (!relative) return './';
-  if (relative.startsWith('../')) return relative;
-  return relative.startsWith('/') ? relative.slice(1) : relative;
-}
-
-function normalizeGitHubPagesLinks() {
-  const rewriteAttribute = (selector, attr) => {
-    document.querySelectorAll(selector).forEach((node) => {
-      const raw = node.getAttribute(attr);
-      if (!raw) return;
-      if (/^(https?:|mailto:|tel:|javascript:|data:|#)/i.test(raw)) return;
-      if (raw.startsWith('//')) return;
-
-      const trimmed = raw.replace(/\/+$/, '');
-      const targetPath = trimmed === '/' ? '/' : trimmed;
-      const next = relativePathFromCurrent(targetPath);
-
-      if (next && next !== raw) {
-        node.setAttribute(attr, next);
-      }
-    });
-  };
-
-  rewriteAttribute('a[href^="/"]', 'href');
-  rewriteAttribute('link[href^="/"]', 'href');
-  rewriteAttribute('script[src^="/"]', 'src');
-  rewriteAttribute('img[src^="/"]', 'src');
-  rewriteAttribute('source[src^="/"]', 'src');
-  rewriteAttribute('source[srcset^="/"]', 'srcset');
-  rewriteAttribute('iframe[src^="/"]', 'src');
-  rewriteAttribute('video[poster^="/"]', 'poster');
-  rewriteAttribute('form[action^="/"]', 'action');
-  document.querySelectorAll('meta[content^="/"]').forEach((node) => {
-    const raw = node.getAttribute('content');
-    if (!raw) return;
-    if (/^(https?:|mailto:|tel:|javascript:|data:|#)/i.test(raw)) return;
-    const next = relativePathFromCurrent(raw.replace(/\/+$/, '') || '/');
-    if (next && next !== raw) node.setAttribute('content', next);
-  });
-}
-
 (function () {
   'use strict';
 
@@ -100,6 +29,7 @@ function normalizeGitHubPagesLinks() {
     });
   }
 
+  /* FAQ accordion */
   document.querySelectorAll('.faq-item').forEach((item) => {
     const btn = item.querySelector('.faq-question');
     if (!btn) return;
@@ -214,6 +144,4 @@ function normalizeGitHubPagesLinks() {
     loadPartial('[data-include="trial-form"]', `${partialBase}partials/trial-form.html`),
     loadPartial('[data-include="trial-copy"]', `${partialBase}partials/trial-copy.html`),
   ]).then(bindTrialForm);
-
-  normalizeGitHubPagesLinks();
 })();
