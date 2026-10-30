@@ -1,11 +1,6 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
-  "rewrites": [
-    { "source": "/:path*", "destination": "/:path*.html" },
-    { "source": "/programs/:path*", "destination": "/programs/:path*.html" },
-    { "source": "/blog/:path*", "destination": "/blog/:path*.html" }
-  ],
   "redirects": [
     { "source": "/about-nvgjj", "destination": "/about", "permanent": true },
     { "source": "/marc-marins", "destination": "/about", "permanent": true },
