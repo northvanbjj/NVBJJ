@@ -1,0 +1,6 @@
+# Repo files that should not be served on the public site
+serve.py
+serve.sh
+vercel.json
+CURSOR-PROMPTS-BUILDOUT.md
+.gitignore
